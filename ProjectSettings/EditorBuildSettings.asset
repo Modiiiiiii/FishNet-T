@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CubeTest.unity
     guid: 8fedf592843b9e545aedd134074300d0
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 3a642d9ac5ab4bc49a4e94757985ff50,
+      type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: bc71eb05c7e9e914bbd89a0a4ff5333d,
+      type: 3}
