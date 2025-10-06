@@ -56,10 +56,10 @@ public class PlayerNetObject : NetworkBehaviour
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
         
         // 如果移动方向不为零，让角色面向移动方向
-        if (movement.magnitude > 0.1f)
+        /*if (movement.magnitude > 0.1f)
         {
             transform.rotation = Quaternion.LookRotation(movement.normalized);
-        }
+        }*/
     }
 
     public override void OnStopClient()
