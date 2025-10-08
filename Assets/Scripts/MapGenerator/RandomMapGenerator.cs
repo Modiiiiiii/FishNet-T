@@ -57,7 +57,7 @@ namespace MapGenerator
         private HashSet<Vector2Int> GenerateFloorPoints(BoundsInt[,] regionPoints)
         {
             _floorPoint =  new HashSet<Vector2Int>[regionSize.x, regionSize.y];
-            _propsPoint = new HashSet<Vector2Int>[regionSize.x, regionSize.y];
+            //_propsPoint = new HashSet<Vector2Int>[regionSize.x, regionSize.y];
             
             Vector2Int[,] regionCenters   = new Vector2Int[regionSize.x, regionSize.y];
             HashSet<Vector2Int> checkFloor = new HashSet<Vector2Int>();
@@ -76,13 +76,13 @@ namespace MapGenerator
                 for (int j = 0; j < regionPoints.GetLength(1); j++)
                 {
                     _floorPoint[i,j] =  new HashSet<Vector2Int>();
-                    _propsPoint[j,i] =  new HashSet<Vector2Int>();
+                    //_propsPoint[j,i] =  new HashSet<Vector2Int>();
                     
                     var region = regionPoints[i,j];
                     var center = region.center;
 
                     _floorPoint[i, j] = RandomMapGenerateAlgorithms.GenerateFloorPoints(regionPoints[i,j],checkFloor,mapIterations,mapSize);
-                    _propsPoint[i, j].UnionWith(_floorPoint[i, j]);
+                    //_propsPoint[i, j].UnionWith(_floorPoint[i, j]);
                     regionCenters[i,j] = (Vector2Int)Vector3Int.RoundToInt(center);
                 }
             }
