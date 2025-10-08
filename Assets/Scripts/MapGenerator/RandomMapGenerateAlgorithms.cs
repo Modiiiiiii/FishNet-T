@@ -69,7 +69,28 @@ namespace MapGenerator
         /// </summary>
         private static void SpreadFloorPoints(HashSet<Vector2Int> points, HashSet<Vector2Int> checkAllFloor, List<Vector2Int> tempPoints)
         {
-            
+            HashSet<Vector2Int> tmpPoint =  new HashSet<Vector2Int>();
+
+            void AddIfNew(Vector2Int newPoint)
+            {
+                if (!points.Contains(newPoint) && !checkAllFloor.Contains(newPoint))
+                {
+                    tmpPoint.Add(newPoint);
+                    checkAllFloor.Add(newPoint);
+                    tempPoints.Add(newPoint);
+                }
+            }
+
+            foreach (var point in points)
+            {
+                AddIfNew(point+GetDir(0));
+                AddIfNew(point+2*GetDir(0));
+                AddIfNew(point+GetDir(1));
+                AddIfNew(point+GetDir(2));
+                AddIfNew(point+2*GetDir(2));
+                AddIfNew(point+GetDir(3));
+                
+            }
         }
 
         #region 地图生成方向

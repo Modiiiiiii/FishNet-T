@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,13 +8,17 @@ namespace MapGenerator
 {
     public class RandomMapGenerator : MonoBehaviour
     {
+        [Header("地图种子")]
         public int mapSeed;
+        [Header("地图大小")]
         public int mapSize;
+        [Header("地图迭代次数")]
         public int mapIterations; //根据地图大小的迭代值
         
+        [Header("地图绘制")]
         [SerializeField] private RandomMapPaintTileMap paintTileMap;
         [SerializeField] private RandomMapPaintTileProp paintTileProp;
-
+        [Header("地图区域大小与范围")]
         [SerializeField] private Vector2Int regionSize;
         [SerializeField] private Vector2Int regionArea;
 
@@ -27,11 +32,21 @@ namespace MapGenerator
         {
             GenerateMap();
         }
-        private void GenerateMap()
+        public async void GenerateMap()
         {
             ResetMapData();
             var regionPoints = InitRegion();
             var checkAllFloor = GenerateFloorPoints(regionPoints);
+
+            await UniTask.WhenAll(PaintTileMap(0,0),PaintTileMap(0,1),PaintTileMap(1,0));
+            await UniTask.WhenAll(PaintTileMap(1,1),PaintTileMap(2,0),PaintTileMap(2,1));
+            await UniTask.WhenAll(PaintTileMap(0,2),PaintTileMap(1,2),PaintTileMap(2,2));
+        }
+
+        private UniTask PaintTileMap(int v1, int v2)
+        {
+            int index = v1 * regionSize.y + v2;
+            return paintTileMap.PaintFloorTile(_floorPoint[v1, v2], index);
         }
 
         #region 区域生成
@@ -87,7 +102,7 @@ namespace MapGenerator
         /// <summary>
         /// 重置地图数据
         /// </summary>
-        private void ResetMapData()
+        public void ResetMapData()
         {
             InitMapSeed();
             InitMapData();
